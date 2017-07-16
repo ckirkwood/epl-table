@@ -114,7 +114,7 @@ for i in range(20):
     points.append(team_points(i))
 
 # create table
-t = PrettyTable(['Position', 'Team', 'Player', 'Points'])
+t = PrettyTable(['#', 'Team', 'Player', 'Pts'])
 t.add_row([position[0], team[0], player_name(0), points[0]])
 t.add_row([position[1], team[1], player_name(1), points[1]])
 t.add_row([position[2], team[2], player_name(2), points[2]])
