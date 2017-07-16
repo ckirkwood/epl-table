@@ -1,1 +1,1 @@
-web: python3 leagueTable.py
+web: python leagueTable.py
