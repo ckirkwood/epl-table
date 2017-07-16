@@ -144,7 +144,7 @@ print(t)
 # prepare to send latest table data to a html template
 def export_html(element, url, body):
     now = datetime.datetime.today().strftime("%Y%m%d-%H%M%S")
-    filename = '/templates/' + element + '.html'
+    filename = '~/templates/' + element + '.html'
     f = open(filename,'w')
 
     wrapper = """
