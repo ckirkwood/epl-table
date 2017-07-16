@@ -188,5 +188,4 @@ def not_found(error):
 # Main programme logic
 if __name__ == "__main__":
     import os
-    port = int(os.environ.get('PORT', 33507))
-	app.run(host='::', port=port, debug=True)
+    app.run(host='::', port=int(os.environ.get('PORT', 33507)), debug=True)
