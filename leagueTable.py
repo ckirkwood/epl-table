@@ -170,9 +170,9 @@ def get_table(st):
     if st == 'data':
         status = 1
     return get_data()
-    elif st == 'table':
-        status = 1
-    return render_template('table.html')
+#    elif st == 'table':
+#        status = 1
+#    return render_template('table.html')
 
 # 404 response
 @app.errorhandler(404)
