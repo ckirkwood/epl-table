@@ -17,9 +17,13 @@ def index():
 
 # fetch data
 url = 'http://api.football-data.org/v1/competitions/445/leagueTable'
-httpreq = urllib2.urlopen(url)
+req = urllib2.Request(url)
+req.add_header('X-Auth-Token', '35c2bd72f6c04046a073cb795d6778a5')
+httpreq = urllib2.urlopen(req)
 response = httpreq.read()
 data = json.loads(response)
+
+
 
 # add player names to dictionary
 for i in range(20):
@@ -169,10 +173,10 @@ def get_table(st):
     global status
     if st == 'data':
         status = 1
-    return get_data()
-#    elif st == 'table':
-#        status = 1
-#    return render_template('table.html')
+        return get_data()
+    elif st == 'table':
+        status = 1
+        return render_template('table.html')
 
 # 404 response
 @app.errorhandler(404)
