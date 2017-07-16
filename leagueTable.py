@@ -154,10 +154,10 @@ def export_html(element, url, body):
     <meta charset="utf-8">
     <title>Kirkwood Sweepstakes - Standings</title>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800" rel="stylesheet">
     </head>
     <body>
-    <body><p>URL: <a href=\"%s\">%s</a></p><p>%s</p></body>
+    <body><p>Raw Data: <a href=https://epl-sweepstakes.herokuapp.com/epl-table/api/v1.0/data>%s</a></p><p>%s</p></body>
     </body>
     </html>
     """
