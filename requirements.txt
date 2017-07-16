@@ -1,0 +1,5 @@
+urllib2==2.7.9
+json==2.6
+html==1.16
+PrettyTable==0.7.2
+Flask==0.12.2
