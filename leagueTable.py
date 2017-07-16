@@ -169,7 +169,7 @@ def get_table(st):
     global status
     if st == 'data':
         status = 1
-	return get_data()
+    return get_data()
     elif st == 'table':
         status = 1
     return render_template('table.html')
