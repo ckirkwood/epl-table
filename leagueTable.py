@@ -133,7 +133,7 @@ t.add_row([position[19], team[19], player_name(19), points[19]])
 # print table to console
 t.align = 'l'
 t.format = False
-print t
+print(t)
 
 # prepare to send latest table data to a html template
 def export_html(element, url, body):
