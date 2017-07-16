@@ -11,6 +11,7 @@
   font-size: 2em;
   background-color: rgb(255, 0, 77);
   padding: 0 50px;
+  position: fixed;
 }
 
 .table td {
