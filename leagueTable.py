@@ -1,5 +1,7 @@
 import urllib2
 import json
+import html
+import datetime
 from prettytable import PrettyTable
 from flask import Flask, request, render_template, jsonify, make_response
 
@@ -128,8 +130,38 @@ t.add_row([position[17], team[17], player_name(17), points[17]])
 t.add_row([position[18], team[18], player_name(18), points[18]])
 t.add_row([position[19], team[19], player_name(19), points[19]])
 
-# print table
+# print table to console
+t.align = 'l'
+t.format = False
 print t
+
+# prepare to send latest table data to a html template
+def export_html(element, url, body):
+    now = datetime.datetime.today().strftime("%Y%m%d-%H%M%S")
+    filename = '/Users/CallumKirkwood/Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/Github/epl-table/templates/' + element + '.html'
+    f = open(filename,'w')
+
+    wrapper = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <title>Kirkwood Sweepstakes - Standings</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+    <body><p>URL: <a href=\"%s\">%s</a></p><p>%s</p></body>
+    </body>
+    </html>
+    """
+
+    whole = wrapper % (element, now, body)
+    f.write(whole)
+    f.close()
+
+# convert table to html, run through export function
+html = t.get_html_string(attributes={"name":"epl-table", "class":"table"})
+export_html('table', 'http://192.168.1.102:2525/epl-table/api/v1.0/table', html)
 
 # Set up API endpoints
 @app.route('/epl-table/api/v1.0/<string:st>', methods=['GET'])
@@ -138,6 +170,9 @@ def get_table(st):
     if st == 'data':
         status = 1
 	return get_data()
+    elif st == 'table':
+        status = 1
+    return render_template('table.html')
 
 # 404 response
 @app.errorhandler(404)

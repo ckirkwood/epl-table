@@ -1,0 +1,12 @@
+* {
+  font-family: Helvetica, sans-serif;
+  background-color: rgb(33, 80, 113);
+  color: rgb(180, 180, 180);
+}
+
+.table th {
+  text-align: left;
+}
+
+.table td {
+}
