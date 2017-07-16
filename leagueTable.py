@@ -1,6 +1,17 @@
 import urllib2
 import json
 from prettytable import PrettyTable
+from flask import Flask, request, render_template, jsonify, make_response
+
+# Initialise Flask api
+app=Flask(__name__)
+
+status = 0
+
+# Direct url to front end template
+@app.route("/epl-table/api/v1.0/")
+def index():
+	return render_template('index.html')
 
 # fetch data
 url = 'http://api.football-data.org/v1/competitions/445/leagueTable'
@@ -71,10 +82,10 @@ for i in range(20):
         bournemouth = data['standing'][i]
         bournemouth['player'] = 'Stephie Hill'
 
-## print all data
-#print json.dumps(data, indent=4, sort_keys=True)
-
 # create functions to simplify requests
+def get_data():
+    return json.dumps(data, indent=4, sort_keys=True)
+
 def team_at_position(pos):
     return(data['standing'][pos]['teamName'])
 
@@ -119,3 +130,20 @@ t.add_row([position[19], team[19], player_name(19), points[19]])
 
 # print table
 print t
+
+# Set up API endpoints
+@app.route('/epl-table/api/v1.0/<string:st>', methods=['GET'])
+def get_table(st):
+    global status
+    if st == 'data':
+        status = 1
+	return get_data()
+
+# 404 response
+@app.errorhandler(404)
+def not_found(error):
+	return make_response(jsonify({'error': 'Not found'}), 404)
+
+# Main programme logic
+if __name__ == "__main__":
+	app.run(host='192.168.1.102', port=2525, debug=True)
