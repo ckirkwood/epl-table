@@ -25,7 +25,7 @@ for i in range(20):
         liverpool['player'] = 'Andrenna Kirkwood'
     elif 'Southampton FC' in data['standing'][i]['teamName']:
         southampton = data['standing'][i]
-        southampton['player'] = 'Andrenna Kirkwood'
+        southampton['player'] = 'Mark Kirkwood'
     elif 'Swansea City FC' in data['standing'][i]['teamName']:
         swansea = data['standing'][i]
         swansea['player'] = 'Ian Edward Kirkwood'
