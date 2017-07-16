@@ -4,7 +4,6 @@ from prettytable import PrettyTable
 
 # fetch data
 url = 'http://api.football-data.org/v1/competitions/445/leagueTable'
-
 httpreq = urllib2.urlopen(url)
 response = httpreq.read()
 data = json.loads(response)
@@ -47,6 +46,9 @@ for i in range(20):
     elif 'Stoke City FC' in data['standing'][i]['teamName']:
         stoke = data['standing'][i]
         stoke['player'] = 'Stevie Hill'
+    elif 'Crystal Palace FC' in data['standing'][i]['teamName']:
+        stoke = data['standing'][i]
+        stoke['player'] = 'Dave Kirkwood'
     elif 'Huddersfield Town' in data['standing'][i]['teamName']:
         huddersfield = data['standing'][i]
         huddersfield['player'] = 'Wes Kirkwood'
@@ -70,8 +72,9 @@ for i in range(20):
         bournemouth['player'] = 'Stephie Hill'
 
 ## print all data
-# print json.dumps(data, indent=4, sort_keys=True)
+#print json.dumps(data, indent=4, sort_keys=True)
 
+# create functions to simplify requests
 def team_at_position(pos):
     return(data['standing'][pos]['teamName'])
 
@@ -105,12 +108,14 @@ t.add_row([position[8], team[8], player_name(8), points[8]])
 t.add_row([position[9], team[9], player_name(9), points[9]])
 t.add_row([position[10], team[10], player_name(10), points[10]])
 t.add_row([position[11], team[11], player_name(11), points[11]])
-# t.add_row([position[12], team[12], player_name(12), points[12]])
-# t.add_row([position[13], team[13], player_name(13), points[13]])
-# t.add_row([position[14], team[14], player_name(14), points[14]])
-# t.add_row([position[15], team[15], player_name(15), points[15]])
-# t.add_row([position[16], team[16], player_name(16), points[16]])
-# t.add_row([position[17], team[17], player_name(17), points[17]])
-# t.add_row([position[18], team[18], player_name(18), points[18]])
-# t.add_row([position[19], team[19], player_name(19), points[19]])
+t.add_row([position[12], team[12], player_name(12), points[12]])
+t.add_row([position[13], team[13], player_name(13), points[13]])
+t.add_row([position[14], team[14], player_name(14), points[14]])
+t.add_row([position[15], team[15], player_name(15), points[15]])
+t.add_row([position[16], team[16], player_name(16), points[16]])
+t.add_row([position[17], team[17], player_name(17), points[17]])
+t.add_row([position[18], team[18], player_name(18), points[18]])
+t.add_row([position[19], team[19], player_name(19), points[19]])
+
+# print table
 print t
