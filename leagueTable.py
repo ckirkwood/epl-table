@@ -21,8 +21,7 @@ def index():
 # fetch data
 url = 'http://api.football-data.org/v1/competitions/445/leagueTable'
 req = urllib2.Request(url)
-key = os.environ['API_KEY']
-req.add_header('X-Auth-Token', key)
+req.add_header('X-Auth-Token', os.environ['API_KEY'])
 httpreq = urllib2.urlopen(req)
 response = httpreq.read()
 data = json.loads(response)
