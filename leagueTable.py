@@ -2,6 +2,7 @@ import urllib2
 import json
 import html
 import datetime
+import os
 from prettytable import PrettyTable
 from flask import Flask, request, render_template, jsonify, make_response
 
@@ -20,7 +21,8 @@ def index():
 # fetch data
 url = 'http://api.football-data.org/v1/competitions/445/leagueTable'
 req = urllib2.Request(url)
-req.add_header('X-Auth-Token', '35c2bd72f6c04046a073cb795d6778a5')
+key = os.environ['API_KEY']
+req.add_header('X-Auth-Token', key)
 httpreq = urllib2.urlopen(req)
 response = httpreq.read()
 data = json.loads(response)
@@ -167,7 +169,7 @@ def export_html(element, url, body):
 
 # convert table to html, run through export function
 html = t.get_html_string(attributes={"name":"epl-table", "class":"table"})
-export_html('table', 'http://192.168.1.102:2525/epl-table/api/v1.0/table', html)
+export_html('table', 'https://epl-sweepstakes.herokuapp.com/epl-table/api/v1.0/table', html)
 
 # Set up API endpoints
 @app.route('/epl-table/api/v1.0/<string:st>', methods=['GET'])
