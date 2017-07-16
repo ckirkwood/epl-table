@@ -5,8 +5,6 @@ import datetime
 from prettytable import PrettyTable
 from flask import Flask, request, render_template, jsonify, make_response
 
-
-
 # Initialise Flask api
 app=Flask(__name__)
 
@@ -25,9 +23,7 @@ httpreq = urllib2.urlopen(req)
 response = httpreq.read()
 data = json.loads(response)
 
-
-
-# add player names to dictionary
+# append player names to dictionary
 for i in range(20):
     if 'Arsenal FC' in data['standing'][i]['teamName']:
         arsenal = data['standing'][i]
@@ -167,7 +163,7 @@ def export_html(element, url, body):
     f.write(whole)
     f.close()
 
-# convert table to html, run through export function
+# convert table to html, call export function
 html = t.get_html_string(attributes={"name":"epl-table", "class":"table"})
 export_html('table', 'http://192.168.1.102:2525/epl-table/api/v1.0/table', html)
 
