@@ -149,7 +149,7 @@ def export_html(element, url, body):
         filename = '/app/templates/' + element + '.html'
         f = open(filename,'w')
     except IOError:
-        filename = '/Users/CallumKirkwood/Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/Github/epl-table/templates' + element + '.html'
+        filename = '/Users/CallumKirkwood/Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/Github/epl-table/templates/' + element + '.html'
         f = open(filename,'w')
 
     wrapper = """
