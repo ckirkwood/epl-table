@@ -3,7 +3,7 @@ import json
 import html
 import datetime
 from prettytable import PrettyTable
-from flask import Flask, request, render_template, jsonify, make_response
+from flask import Flask, request, render_template, jsonify, make_response, redirect
 
 # url when running locally: http://192.168.1.102:33507/epl-table/api/v1.0/table
 
@@ -11,6 +11,10 @@ from flask import Flask, request, render_template, jsonify, make_response
 app=Flask(__name__)
 
 status = 0
+
+@app.route('/')
+def projects():
+    return redirect("http://callumkirkwood.com/projects", code=302)
 
 # Direct url to front end template
 @app.route("/epl-table/api/v1.0/")
