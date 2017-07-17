@@ -1,7 +1,19 @@
 * {
+
+}
+
+body {
   font-family: Helvetica, sans-serif;
   background-color: rgb(0, 255, 157);
   color: rgb(62, 0, 60);
+  width: 100%;
+  height: 100%;
+}
+
+.table {
+  display: block;
+  width: 80%;
+  margin: auto;
 }
 
 .table th {
