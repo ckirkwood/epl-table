@@ -5,6 +5,8 @@ import datetime
 from prettytable import PrettyTable
 from flask import Flask, request, render_template, jsonify, make_response
 
+# url when running locally: http://192.168.1.102:33507/epl-table/api/v1.0/table
+
 # Initialise Flask api
 app=Flask(__name__)
 
@@ -133,15 +135,22 @@ t.add_row([position[18], team[18], player_name(18), points[18]])
 t.add_row([position[19], team[19], player_name(19), points[19]])
 
 # print table to console
-t.align = 'l'
+t.align["#"] = "c"
+t.align["Team"] = "l"
+t.align["Player"] = "l"
+t.align["Pts"] = "r"
 t.format = False
 print(t)
 
 # prepare to send latest table data to a html template
 def export_html(element, url, body):
     now = datetime.datetime.today().strftime("%Y%m%d-%H%M%S")
-    filename = '/app/templates/' + element + '.html'
-    f = open(filename,'w')
+    try:
+        filename = '/app/templates/' + element + '.html'
+        f = open(filename,'w')
+    except IOError:
+        filename = '/Users/CallumKirkwood/Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/Github/epl-table/templates' + element + '.html'
+        f = open(filename,'w')
 
     wrapper = """
     <!DOCTYPE html>
@@ -153,9 +162,7 @@ def export_html(element, url, body):
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800" rel="stylesheet">
     </head>
-    <body>
     <body><p>url: <a href=\"%s\">%s</a></p><p>%s</p></body>
-    </body>
     </html>
     """
 
