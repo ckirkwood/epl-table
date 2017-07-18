@@ -2,15 +2,22 @@ import urllib2
 import json
 import html
 import datetime
+from dotenv import load_dotenv, find_dotenv
+import os
 from prettytable import PrettyTable
 from flask import Flask, request, render_template, jsonify, make_response, redirect
 
 # url when running locally: http://192.168.1.102:33507/epl-table/api/v1.0/table
 
+load_dotenv(find_dotenv())
+api_key = os.environ.get('API_KEY')
+
 # Initialise Flask api
 app=Flask(__name__)
 
 status = 0
+
+
 
 @app.route('/')
 def projects():
@@ -24,7 +31,7 @@ def index():
 # fetch data
 url = 'http://api.football-data.org/v1/competitions/445/leagueTable'
 req = urllib2.Request(url)
-req.add_header('X-Auth-Token', '35c2bd72f6c04046a073cb795d6778a5')
+req.add_header('X-Auth-Token', api_key)
 httpreq = urllib2.urlopen(req)
 response = httpreq.read()
 data = json.loads(response)
@@ -148,31 +155,32 @@ print(t)
 
 # prepare to send latest table data to a html template
 def export_html(element, url, body):
-    now = datetime.datetime.today().strftime("%Y%m%d-%H%M%S")
-    try:
-        filename = '/app/templates/' + element + '.html'
-        f = open(filename,'w')
-    except IOError:
-        filename = '/Users/CallumKirkwood/Library/Mobile Documents/com~apple~CloudDocs/Documents/Programming/Github/epl-table/templates/' + element + '.html'
-        f = open(filename,'w')
+	now = datetime.datetime.today().strftime("%Y%m%d-%H%M%S")
+	try:
+		filename = '/app/templates/' + element + '.html'
+		f = open(filename,'w')
+	except IOError:
+		local_folder = os.environ.get('TEMPLATE_FOLDER')
+		filename = local_folder + element + '.html'
+		f = open(filename,'w')
 
-    wrapper = """
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <title>Kirkwood Sweepstakes - Standings</title>
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800" rel="stylesheet">
-    </head>
-    <body><p>url: <a href=\"%s\">%s</a></p><p>%s</p></body>
-    </html>
-    """
+		wrapper = """
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="utf-8">
+		<title>Kirkwood Sweepstakes - Standings</title>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800" rel="stylesheet">
+		</head>
+		<body><p>url: <a href=\"%s\">%s</a></p><p>%s</p></body>
+		</html>
+		"""
 
-    whole = wrapper % (element, now, body)
-    f.write(whole)
-    f.close()
+	whole = wrapper % (element, now, body)
+	f.write(whole)
+	f.close()
 
 # convert table to html, call export function
 html = t.get_html_string(attributes={"name":"epl-table", "class":"table"})
