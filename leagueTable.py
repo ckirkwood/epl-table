@@ -19,8 +19,6 @@ app=Flask(__name__)
 
 status = 0
 
-
-
 @app.route('/')
 def projects():
     return redirect("http://callumkirkwood.com/projects", code=302)
