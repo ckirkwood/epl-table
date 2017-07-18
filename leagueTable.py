@@ -9,8 +9,10 @@ from flask import Flask, request, render_template, jsonify, make_response, redir
 
 # url when running locally: http://192.168.1.102:33507/epl-table/api/v1.0/table
 
+# retrieve credentials
 load_dotenv(find_dotenv())
 api_key = os.environ.get('API_KEY')
+local_folder = os.environ.get('TEMPLATE_FOLDER')
 
 # Initialise Flask api
 app=Flask(__name__)
@@ -160,7 +162,6 @@ def export_html(element, url, body):
 		filename = '/app/templates/' + element + '.html'
 		f = open(filename,'w')
 	except IOError:
-		local_folder = os.environ.get('TEMPLATE_FOLDER')
 		filename = local_folder + element + '.html'
 		f = open(filename,'w')
 
