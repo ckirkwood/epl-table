@@ -157,33 +157,29 @@ print(t)
 
 # prepare to send latest table data to a html template
 def export_html(element, url, body):
-    now = datetime.datetime.today().strftime("%Y%m%d-%H%M%S")
-	try:
-		filename = '/app/templates/' + element + '.html'
-		f = open(filename,'w')
-	except IOError:
-		filename = local_folder + element + '.html'
-		f = open(filename,'w')
+	now = datetime.datetime.today().strftime("%Y%m%d-%H%M%S")
+	filename = '/app/templates/' + element + '.html'
+	f = open(filename,'w')
 
-    wrapper = """
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <title>Kirkwood Sweepstakes - Standings</title>
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800" rel="stylesheet">
-    </head>
-    <body>
-    <body><p>url: <a href=\"%s\">%s</a></p><p>%s</p></body>
-    </body>
-    </html>
-    """
+	wrapper = """
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<title>Kirkwood Sweepstakes - Standings</title>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800" rel="stylesheet">
+	</head>
+	<body>
+	<body><p>url: <a href=\"%s\">%s</a></p><p>%s</p></body>
+	</body>
+	</html>
+	"""
 
-    whole = wrapper % (element, now, body)
-    f.write(whole)
-    f.close()
+	whole = wrapper % (element, now, body)
+	f.write(whole)
+	f.close()
 
 # convert table to html, call export function
 html = t.get_html_string(attributes={"name":"epl-table", "class":"table"})
