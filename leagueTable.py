@@ -178,9 +178,9 @@ def export_html(element, url, body):
 		</html>
 		"""
 
-	whole = wrapper % (element, now, body)
-	f.write(whole)
-	f.close()
+		whole = wrapper % (element, now, body)
+		f.write(whole)
+		f.close()
 
 # convert table to html, call export function
 html = t.get_html_string(attributes={"name":"epl-table", "class":"table"})
