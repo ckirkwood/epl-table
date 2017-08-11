@@ -174,7 +174,9 @@ def export_html(element, url, body):
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800" rel="stylesheet">
 	</head>
 	<body>
-	<body><p>url: <a href=\"%s\">%s</a></p><p>%s</p></body>
+    <p>url: <a href=\"%s\">%s</a></p><p>%s</p>
+    <div id="button1"><a href="http://apps.callumkirkwood.com/epl-table/api/v1.0/">Back</a></div>
+	<div id="button2"><a href="http://apps.callumkirkwood.com/epl-table/api/v1.0/data">Data</a></div>
 	</body>
 	</html>
 	"""
